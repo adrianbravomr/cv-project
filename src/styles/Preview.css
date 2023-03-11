@@ -6,6 +6,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   overflow: auto;
+  font-size: 85%;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
 }
 
@@ -18,7 +19,7 @@
 
 @media (max-width:800px){
   .preview-page{
-    font-size: 1.5vw;
+    font-size: 1.8vw;
   }
 
 }
