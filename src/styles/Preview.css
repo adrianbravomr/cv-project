@@ -1,0 +1,172 @@
+.preview-page{
+  background-color: white;
+  aspect-ratio: 1 / 1.4;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: auto;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+}
+
+@media (max-aspect-ratio: 1/1){
+  .preview-page{
+    flex-grow: 0;
+    font-size: 1vw;
+  }
+}
+
+@media (max-width:800px){
+  .preview-page{
+    font-size: 1.5vw;
+  }
+
+}
+
+.preview-page-header{
+  margin: 1% 1% 0% 1%;
+  background-color: midnightblue;
+  border-radius: 10px;
+  height: 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 10px 3px;
+  color: white;
+}
+
+.preview-page-header h1{
+  display: flex;
+  align-items: center;
+  margin: 0%;
+  font-size:170%;
+  line-height: 150%;
+}
+
+.preview-page-header h3{
+  display: flex;
+  align-items: center;
+  margin: 0%;
+  height: 30%;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.9);
+  font-size:120%;
+}
+
+.preview-page-body{
+  flex-grow: 1;
+  display: flex;
+}
+
+
+/* Sidebar */
+
+.preview-page-body-sidebar{
+  flex-shrink: 0;
+  width: 27%;
+  margin: 1%;
+  border-radius: 20px;
+  background-color:rgb(235, 235, 235);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-group{
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  gap: 0.3rem;
+}
+
+.sidebar-group:not(:first-child){
+  border-top: solid 0.01rem rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-group-title{
+  margin: 5% 0%;
+  color: midnightblue;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.sidebar-photo{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1%;
+}
+
+.sidebar-photo img{
+  width: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.sidebar-item{
+  text-align: center;
+  line-height: 130%;
+}
+
+.sidebar-key{
+  font-weight: bold;
+}
+
+.sidebar-value{
+  font-size: 75%;
+}
+
+
+
+/* Sections */
+
+.preview-page-body-sections{
+  flex-grow: 1;
+  margin: 2% 2%; 
+}
+
+.preview-section{
+  margin-bottom: 1rem;
+}
+
+.preview-section-title{
+  font-weight: bold;
+  font-size: 130%;
+  color:midnightblue;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.preview-section-text{
+  line-height: 150%;
+}
+
+.preview-list{
+  display: flex;
+  flex-direction: column;
+  gap:15px;
+}
+
+/* Lists (Experience / Education) */
+
+.list-div{
+  display: flex;
+  line-height: 150%;
+}
+
+.list-date{
+  width: 35%;
+  font-weight: bold;
+}
+
+.list-info{
+  display: block;
+}
+
+.list-title{
+  font-weight: bold;
+}
+
+.list-subtitle{
+  color:gray;
+  font-size: 90%;
+}
