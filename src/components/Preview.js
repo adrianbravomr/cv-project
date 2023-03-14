@@ -1,10 +1,10 @@
-import React,{Component} from "react";
+import React from "react";
 import "../styles/Preview.css";
 
-class Preview extends Component{
+const Preview = props => {
 
-  render(){
-    const {cv} = this.props;
+    const {cv} = props;
+    
     return(
       <div className="preview-page">
         <div className="preview-page-header">
@@ -92,7 +92,6 @@ class Preview extends Component{
         </div>
       </div>
     );
-  }
 }
 
 export default Preview

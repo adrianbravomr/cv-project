@@ -1,11 +1,9 @@
-import React,{Component} from "react";
+import React from "react";
 import "../styles/Section.css"
 
-class SectionList extends Component{
+const SectionList = (props) => {
 
-  render(){
-    const {params} = this.props;
-    const {inputs,group,title,fields,handleChange} = params;
+    const {inputs,group,title,fields,handleChange} = props.params;
 
     const list = inputs.list;
 
@@ -39,7 +37,6 @@ class SectionList extends Component{
         {AddButton}
       </section>
     )
-  }
 }
 
 export default SectionList

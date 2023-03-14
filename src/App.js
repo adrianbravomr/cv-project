@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React,{useState} from "react";
 import './styles/App.css';
 import Section from './components/Section';
 import Preview from './components/Preview';
@@ -10,123 +10,120 @@ import defaultPhoto from "./assets/default_photo.jpg";
 import ExampleCV from "./components/exampleCv";
 
 
-class App extends Component{
+const App = props => {
 
-  constructor(props){
-    super(props);
+    const [cv,setCv] = useState({
+      personal:{
+        firstName: {label:'First Name',type:'text', value:''},
+        lastName: {label:'Last Name',type:'text',value:''},
+        title: {label:'Title',type:'text',value:''},
+        birth: {label:'Birthdate',type:'date',value:''},
+        photo: {label:'Photo',type:'file', value:defaultPhoto},
+        nationality: {label:'Nationality',type:'text',value:''},
+        language: {label:'Languages',type:'text',value:''},
+        description:{label:'Description',type:'textarea',value:''},
+      },
+      contact:{
+        email: {label:'Email',type:'email',value:''},
+        phone: {label:'Phone Number',type:'tel',value:''},
+        address: {label:'Address',type:'text',value:''},
+      },
+      education: {
+        list:
+        [
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleButton = this.handleButton.bind(this);
-    this.setCvData = this.setCvData.bind(this);
-    this.loadExample = this.loadExample.bind(this);
+        ]
+      },
+      experience: {
+        list:
+        [
 
-    this.state = {
-      cv:{
-        personal:{
-          firstName: {label:'First Name',type:'text', value:''},
-          lastName: {label:'Last Name',type:'text',value:''},
-          title: {label:'Title',type:'text',value:''},
-          birth: {label:'Birthdate',type:'date',value:''},
-          photo: {label:'Photo',type:'file', value:defaultPhoto},
-          nationality: {label:'Nationality',type:'text',value:''},
-          language: {label:'Languages',type:'text',value:''},
-          description:{label:'Description',type:'textarea',value:''},
-        },
-        contact:{
-          email: {label:'Email',type:'email',value:''},
-          phone: {label:'Phone Number',type:'tel',value:''},
-          address: {label:'Address',type:'text',value:''},
-        },
-        education: {list:[]},
-        experience: {list:[]},
-      }
-    };
-  }
-
-  handleChange(e,group,key,input){
-
-    const tag = e.target.localName;
-    const value = e.target.value;
-    const isList = Boolean(e.target.dataset.field);
-
-    if (tag==="button"){
-      e.preventDefault();
-      this.handleButton(e,group);
-    }  
-
-    else if(isList){
-      const index = e.target.dataset.index;
-      group = e.target.dataset.field;
-      key = e.target.dataset.subfield;
-
-      let groupCopy = JSON.parse(JSON.stringify(this.state.cv[group].list));
-      groupCopy[index][key] = value;
-
-      this.setCvData(group,'list',groupCopy);
-    }
-
-    else if(input.type==='file'){
-
-      const file = e.target.files[0];
-      if(!file) return;
-
-      const fileReader = new FileReader();
-      fileReader.onload = () => {
-        this.setCvData(group,key,fileReader.result);
-        return;
-      }
-
-      fileReader.readAsDataURL(file);
-
-    }
-
-    else {
-      this.setCvData(group,key,value);
-    }
-
-  }
-
-  setCvData(group,key,value){
-
-    let cvCopy = JSON.parse(JSON.stringify(this.state.cv));
-
-    if(key === 'list'){
-      cvCopy[group][key] = value;
-    } else {
-      cvCopy[group][key].value = value;
-    }
-
-    this.setState({
-      cv: {...cvCopy}
+        ]
+      },
     });
 
-  }
+    let componentRef;
 
-  handleButton(e,group){
+    const handleChange = (e,group,key,input) => {
 
-    const id = e.target.id;
-    let newVal = {...this.state.cv[group]};
+      const tag = e.target.localName;
+      const value = e.target.value;
+      const isList = Boolean(e.target.dataset.field);
 
-    if (id.includes('add')){
-      newVal.list = [...newVal.list,{}];
+      if (tag==="button"){
+        e.preventDefault();
+        handleButton(e,group);
+      }  
+
+      else if(isList){
+        const index = e.target.dataset.index;
+        group = e.target.dataset.field;
+        key = e.target.dataset.subfield;
+
+        let groupCopy = JSON.parse(JSON.stringify(cv[group].list));
+        groupCopy[index][key] = value;
+
+        setCvData(group,'list',groupCopy);
+      }
+
+      else if(input.type==='file'){
+
+        const file = e.target.files[0];
+        if(!file) return;
+
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          setCvData(group,key,fileReader.result);
+          return;
+        }
+
+        fileReader.readAsDataURL(file);
+
+      }
+
+      else {
+        setCvData(group,key,value);
     }
 
-    if (id.includes('del')){
-      const index = e.target.parentNode.dataset.index;
-      newVal.list.splice(index,1);
     }
 
-    this.setCvData(group,'list',newVal.list);
+    const setCvData = (group,key,value) =>{
+      let cvCopy = JSON.parse(JSON.stringify(cv));
 
-  }
+      if(key === 'list'){
+        cvCopy[group][key] = value;
+      } else {
+        cvCopy[group][key].value = value;
+      }
 
-  loadExample(){
-    this.setState({
-      cv:JSON.parse(JSON.stringify(ExampleCV))
-    })
-  }
+      setCv(
+        {...cvCopy}
+      );
+    }
 
-  render(){
+    const handleButton = (e,group) => {
+
+      const id = e.target.id;
+      let newVal = {...cv[group]};
+
+      if (id.includes('add')){
+        newVal.list = [...newVal.list,{}];
+      }
+
+      if (id.includes('del')){
+        const index = e.target.parentNode.dataset.index;
+        newVal.list.splice(index,1);
+      }
+
+      setCvData(group,'list',newVal.list);
+
+    }
+
+    const loadExample = () => {
+      setCv(ExampleCV);
+    }
+
+
     return (
       <div className="App">
         <form className='form'>
@@ -134,47 +131,49 @@ class App extends Component{
             params = {{
               group: 'personal',
               title: "Personal Information" ,
-              fields: this.state.cv.personal,
-              handleChange: this.handleChange,
-            }}/>
+              fields: cv.personal,
+              handleChange: handleChange,
+            }}
+          />
           <Section
             params = {{
               group: 'contact',
               title: 'Contact',
-              fields: this.state.cv.contact,
-              handleChange: this.handleChange,
-            }}/>
+              fields: cv.contact,
+              handleChange: handleChange,
+            }}
+          />
           <SectionList
             params = {{
-              inputs: this.state.cv.education,
+              inputs: cv.education,
               group: 'education',
               title: 'Education',
               fields: ['Title','Degree','University','City','From','To'],
-              handleChange: this.handleChange,
+              handleChange: handleChange,
             }}/>
           <SectionList 
             params = {{
-              inputs: this.state.cv.experience,
+              inputs: cv.experience,
               group: 'experience',
               title: 'Experience',
               fields: ['Position','Company','City','From','To'],
-              handleChange: this.handleChange,
-            }}/>
+              handleChange: handleChange,
+            }}
+          />
           <ReactToPrint 
             trigger={() => {
               return <button type='button' className="button-generate" >Generate PDF</button>
             }}
-            content = {() => this.componentRef}
+            content = {() => componentRef}
           />
           <button className="button-reset" onClick={(e)=>{window.location.reload();}}>Reset Form</button>
-          <button type='button' className="button-example" onClick={this.loadExample}>Example CV</button>
+          <button type='button' className="button-example" onClick={loadExample}>Example CV</button>
         </form>
         <div className='preview'>
-          {<Preview cv={this.state.cv} ref={el=>(this.componentRef = el)}/>}
+          {<Preview cv={cv} ref={el=>(componentRef = el)}/>}
         </div>
       </div>
     );
-  }
 }
 
 export default App;
