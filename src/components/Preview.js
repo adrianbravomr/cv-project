@@ -1,12 +1,12 @@
 import React from "react";
 import "../styles/Preview.css";
 
-const Preview = props => {
+const Preview = React.forwardRef((props,ref) => {
 
-    const {cv} = props;
+    const cv = props.cv;
     
     return(
-      <div className="preview-page">
+      <div className="preview-page" ref={ref}>
         <div className="preview-page-header">
           <h1>{cv.personal.firstName.value+' '+cv.personal.lastName.value}</h1>
           <h3>{cv.personal.title.value}</h3>
@@ -92,6 +92,6 @@ const Preview = props => {
         </div>
       </div>
     );
-}
+})
 
 export default Preview
